@@ -20,7 +20,7 @@ def pressure_gain_from_water_height(height):
     Parameter
     height: a float number"""
     
-    pressure = 998.2 * 9.80665 * height / 1000
+    pressure = WATER_DENSITY * EARTH_ACCELERATION_OF_GRAVITY * height / 1000
     
     return pressure
 
@@ -38,11 +38,10 @@ def pressure_loss_from_pipe(pipe_diameter, pipe_length, friction_factor, fluid_v
     
     f = friction_factor
     L = pipe_length
-    p = 998.2
     v = fluid_velocity
     d = pipe_diameter
     
-    pressure_loss = (-f * L * p * v **2 ) / (2000 * d)
+    pressure_loss = (-f * L * WATER_DENSITY * v **2 ) / (2000 * d)
     
     return pressure_loss
 
@@ -56,11 +55,10 @@ def pressure_loss_from_fittings(fluid_velocity, quantity_fittings):
     v: velocity of the water flowing through the pipe in meters/second
     n: quantity of fittings"""
 
-    p = 998.2
     v = fluid_velocity
     n = quantity_fittings
 
-    P = (-0.04 * p * v**2 * n) / 2000
+    P = (-0.04 * WATER_DENSITY * v**2 * n) / 2000
 
     return P
     
@@ -69,18 +67,15 @@ def reynolds_number(hydraulic_diameter, fluid_velocity):
     Parameter
     
     R: Reynolds number
-    p: density of water (998.2 kilogram / meter3)
     d: hydraulic diameter of a pipe in meters. For a round pipe, the hydraulic diameter 
     is the same as the pipe's inner diameter.
     v: velocity of the water flowing through the pipe in meters / second
     u: dynamic viscosity of water (0.0010016 Pascal seconds)"""
 
-    p = 998.2
     d = hydraulic_diameter
     v = fluid_velocity
-    u = 0.0010016
 
-    R = (p * d * v) / u
+    R = (WATER_DENSITY * d * v) / WATER_DYNAMIC_VISCOSITY
 
     return R
 
@@ -94,22 +89,36 @@ def pressure_loss_from_pipe_reduction(larger_diameter, fluid_velocity, reynolds_
     D: diameter of the larger pipe in meters
     d: diameter of the smaller pipe in meters
     P: lost pressure kilopascals
-    w: density of water (998.2 kilogram / meter3)
     v: velocity of the water flowing through the larger diameter pipe in meters / second
     """
 
     R = reynolds_number
     D = larger_diameter
     d = smaller_diameter
-    w = 998.2
     v = fluid_velocity
 
 
     k = (0.1 + 50/R) * ((D/d)**4 - 1)
 
-    P = (-k * w * v ** 2) / 2000
+    P = (-k * WATER_DENSITY * v ** 2) / 2000
 
     return P
+
+def convert_kpa_psi(kpa):
+    """returns the conversion between kilopascals to psi (pounds per square inch)
+    
+    Parameter
+    kpa: kilospacal pressure to be converted
+    psi: converted pressure from kpa
+    """
+
+    psi = kpa * 0.14504
+
+    return psi
+
+EARTH_ACCELERATION_OF_GRAVITY = 9.80665
+WATER_DENSITY = 998.2
+WATER_DYNAMIC_VISCOSITY = 0.0010016
 
 PVC_SCHED80_INNER_DIAMETER = 0.28687 # (meters)  11.294 inches
 PVC_SCHED80_FRICTION_FACTOR = 0.013  # (unitless)
@@ -149,8 +158,10 @@ def main():
     velocity = HOUSEHOLD_VELOCITY
     loss = pressure_loss_from_pipe(diameter, length2, friction, velocity)
     pressure += loss
+    psi = convert_kpa_psi(pressure)
 
     print(f"Pressure at house: {pressure:.1f} kilopascals")
+    print(f"Pressure at house: {psi:.1f} psi")
 
 
 if __name__ == "__main__":

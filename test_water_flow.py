@@ -41,6 +41,12 @@ def test_pressure_loss_from_pipe_reduction():
     assert water_flow.pressure_loss_from_pipe_reduction(0.28687, 1.65, 471729, 0.048692) == approx(-163.744, abs=0.001)
     assert water_flow.pressure_loss_from_pipe_reduction(0.28687, 1.75, 500318, 0.048692) == approx(-184.182, abs=0.001)
 
+def test_convert_kpa_psi():
+    assert water_flow.convert_kpa_psi(1) == approx (0.145, abs=0.01)
+    assert water_flow.convert_kpa_psi(3) == approx (0.435, abs=0.01)
+    assert water_flow.convert_kpa_psi(800) == approx (116.032, abs=0.01)
+    assert water_flow.convert_kpa_psi(158.7) == approx (23.01, abs=0.01)
+
 # Call the main function that is part of pytest so that the 
 # computer will execute the test functions in this file.
 pytest.main(["-v", "--tb=line", "-rN", __file__])
