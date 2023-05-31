@@ -4,6 +4,11 @@
 import random
 
 def append_random_numbers(numbers_list, quantity = 1):
+    """Append random numbers into the referred numbers list.
+    Parameter:
+        numbers_list: A list of numbers where the function will append the random number
+        quantity: defines how many times a random number will be append into the referred list
+    Return: nothing."""
     i=0
     while i < quantity:
         new_number = random.uniform(10,90)
@@ -12,12 +17,16 @@ def append_random_numbers(numbers_list, quantity = 1):
         i += 1
     
 def append_random_words (words_list, quantity = 1):
-    i = 0
+    """Append random words into the referred words list.
+    Parameter:
+        words_list: A list of words where the function will append the random choose word
+        quantity: defines how many times a random word will be append into the referred list
+    Return: nothing."""
+    
     words = ["love", "God", "heaven", "attonement", "church", "friend", "cloud", "head", "hand", "eye"]
-    while i < quantity:
+    for _ in range(quantity):
         random_word = random.choice(words)
         words_list.append(random_word)
-        i += 1
 
 def main():
     numbers = [16.2, 75.1, 52.3]
@@ -35,5 +44,5 @@ def main():
     print(words)
     
 
-if "__main__" == "__main__":
+if __name__ == "__main__":
     main()
