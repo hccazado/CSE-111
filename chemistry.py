@@ -1,3 +1,8 @@
+#Default variables
+SYMBOL_IDX = 0
+NAME_IDX = 1
+ATOMIC_MASS_IDX = 2
+
 def make_periodic_table():
     """make and return a compound list containing the 94 naturally occuring elements."""
     
@@ -118,8 +123,8 @@ def main ():
         """iterate the compound list containing the periodic table."""
         
         #destructuring the name and atomic mass from the current list iteration
-        name = element[1]
-        atomic_mass = element[2]
+        name = element[NAME_IDX]
+        atomic_mass = element[ATOMIC_MASS_IDX]
     
         print(f"Element: {name.title():10} - Atomic mass: {atomic_mass}")
         
