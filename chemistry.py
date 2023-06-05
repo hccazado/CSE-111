@@ -216,15 +216,16 @@ def sum_protons(symbol_quantity_list, periodic_table_dict):
     #iterating the list of symbols and quantities  
     for inner_list in symbol_quantity_list:
         symbol = inner_list[NAME_INDEX]
+        quantity = inner_list[QUANTITY_INDEX]
         #getting the respective symbol's data from periodic table
         element = periodic_table_dict[symbol]
-        #adding current element atomic number into a variable
-        atomic_number = element[ATOMIC_NUMBER_INDEX]
+        #calculating the number of protons
+        protons = element[ATOMIC_NUMBER_INDEX] * quantity
         
         #summing up formula's total number of protons
-        total_num_protons += atomic_number
+        total_num_protons += protons
         
-    # Return the total molar mass.
+    # Returning formula's number of protons
     return total_num_protons
     
     
