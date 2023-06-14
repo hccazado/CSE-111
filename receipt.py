@@ -49,15 +49,19 @@ def main():
 
     with open("request.csv", "rt") as request_file:
         reader = csv.reader(request_file)
-
+        #skipping first line since it correponds to column headings
         next(reader)
-
+        
+        #reading each file's line with csv reader
         for line in reader:
+           #getting number of requested product and quantity of the requested product
            req_product = line[PRODUCT_NUMBER_IDX]
            req_quantity = line[REQUEST_QTY]
 
+           #retrieving values for current requested product from products_dict        
            cur_product = products_dict[req_product]
-
+           
+           #retrieving name and price from returned product
            name = cur_product[PRODUCT_NAME_IDX]
            price = cur_product[PRODUCT_PRICE_IDX]
 
