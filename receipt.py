@@ -33,7 +33,8 @@ def read_dictionary(filename, key_column_index):
     with open(filename, "rt") as file:
         #reading the file with python's builtin module csv
         reader = csv.reader(file)
-
+        #skipping file's first line since it contains column headings
+        next(reader)
         #iterating each line of the file
         for line in reader:
             key = line[PRODUCT_NUMBER_IDX]
@@ -47,6 +48,7 @@ def main():
 
     print(products_dict)
 
+    print("Requested Items:")
     with open("request.csv", "rt") as request_file:
         reader = csv.reader(request_file)
         #skipping first line since it correponds to column headings
@@ -64,8 +66,8 @@ def main():
            #retrieving name and price from returned product
            name = cur_product[PRODUCT_NAME_IDX]
            price = cur_product[PRODUCT_PRICE_IDX]
-
-           print(f"Product: {name:15} - Req. Qty: {req_quantity:3} - Price: {price}")
+           
+           print(f"{name:15}: Req. Qty: {req_quantity:3} @ {price}US$")
 
 
 
