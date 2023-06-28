@@ -1,0 +1,46 @@
+CSE 111 Proposal for a Student Chosen Program
+
+    (This is a proposal. All proposals are written with our best
+    knowledge at the beginning of a project. As we progress from the
+    beginning to the end of a project, we gain more knowledge, and we
+    change some of our proposed ideas. This is part of completing any
+    project and is fine.  However, we still must write a proposal so
+    that our teachers or supervisors know what we intend to do. Please
+    answer each of the following questions to the best of your
+    knowledge.)
+
+1. What is the title of your program?
+super auto parking
+
+2. What real-world problem will your program address or help to solve?
+
+My program is intended to help small parking lots automate their business. 
+In South America, it is still common to find that these businesses are still 
+keeping manual control. Some may still deliver a printed coupon with your vehicle 
+license plate and parked hour. Therefore, at the vehicle's retrieval, someone will
+manually calculate the payment amount. 
+With this program, these businesses may obtain better and more precise control of 
+parked vehicles, more precise control how long a vehicle has stayed, more accurate 
+debt value, and possibly a report of their monthly net incoming or even parked vehicles.
+
+3. What will you learn from developing this program?
+I'm going to learn how to connect my Python application with databases, more specifically
+Firebase or Firestore. Also, I'll learn to create a GUI for my Python applications. 
+Furthermore, how to use stored data to deliver meaningful information.
+
+4. What Python modules will your program use?
+datetime, tkinter, json, math, csv, firebase_admin / firebase (3rd party module available at PyPI).
+
+5. Will you separate your Python program into functions that each
+perform a single task?
+
+Surely I will. Inspired by the MVC model, my program is intended to isolate the user interface 
+and its interactions from data operations. Nevertheless, because of its low complexity level, 
+the model and controllers may be integrated at the same level. 
+
+6. Will you write test functions to test at least two of your program
+functions?
+
+Yes, especially one for payments calculations, license plate validator, and, if possible, 
+that my database operations are receiving the expected server's response (special attention 
+will be given to updating operations).
