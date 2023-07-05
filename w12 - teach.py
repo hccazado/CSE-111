@@ -69,12 +69,23 @@ def populate_main_window(frm_main):
             area = round(area, 2)
             lbl_res_value.config(text=area)
         except ValueError as error:
-            print(type(error).__name__)
-            
+            #print(type(error).__name__)
+            lbl_res_value.config(text="Error")
+
+
+    def clear():
+        btn_clear.focus()
+        ent_rad.delete(0, 'end')
+        lbl_res_value.config(text="")
+        ent_rad.focus()
+        
+    
     ent_rad.bind("<KeyRelease>", areaCalculate)
     
     ent_rad.focus()
 
+    btn_clear.config(command=clear)
+    
 
 if __name__ == "__main__":
     main()
