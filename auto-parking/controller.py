@@ -1,7 +1,7 @@
 """Parkin Auto - Controller Module"""
 
 import math
-from datetime import datetime
+from datetime import datetime, timedelta
 import model as dao
 import json
 from json import JSONDecodeError
@@ -51,7 +51,6 @@ def get_vehicles():
     except JSONDecodeError as error:
         print(error)
     
-    
 
 def search_parked_vehicle(plate):
     """Search for a informed plate and active parked vehicle
@@ -65,13 +64,40 @@ def search_parked_vehicle(plate):
     for key in vehicles:
         if vehicles[key]["plate"] == plate and vehicles[key]["active"] == True:
             current_dt = current_time()
+            total_time = compute_parked_time(vehicles[key]["parked_time"], current_dt)
+            payment_amount = compute_parking_rate(vehicles[key]["price"], total_time)
             return [key, 
                     vehicles[key]["plate"],
                     vehicles[key]["parked_time"],
-                    current_dt,
-                    vehicles[key]["price"]]
+                    total_time,
+                    vehicles[key]["price"],
+                    payment_amount]
         else:
             return []
+        
+def compute_parked_time(start_time, finish_time):
+    """Computes total time that a vehicle remained parked.
+    Parameter: start_time: datetime object whith starting parked time
+               finish_time: datetime object whith finishing parked time, current time.
+    Return: amounf of time a vehicle remained parked"""
+    
+    initial_time = datetime.strptime(start_time, "%d/%m/%y - %H:%M")
+    finish_time = datetime.strptime(finish_time, "%d/%m/%y - %H:%M")
+    total_time = finish_time - initial_time
+    return total_time
+
+def compute_parking_rate(rate, total_time):
+    """Computes total rate according to vehicle's parked time.
+    Parameter: rate: float number with vehicle's applied rate
+               total_time: datetime object with vehicle's parked time
+    Return: value of required payment"""
+    hours = total_time / timedelta(hours=1)
+    if hours <= 8:
+        return round((float(hours) * float(rate)), 2)
+    
+    elif hours > 8:
+        periods = hours/8
+        return round((float(periods) * 5.0 * float(rate)), 2)
     
 if __name__ == "__main__":
     print("Try starting 'Parking.py' file")

@@ -118,13 +118,15 @@ def populate_finish_parking_frame(frm_finish_parking):
     #defining widgets for Finish parking frame
     lbl_key_msg = Label(frm_finish_parking, text="Parking key:", padx=5, pady=5)
     lbl_key = Label(frm_finish_parking, padx=3)
-    lbl_plate = Label(frm_finish_parking, text="License Plate to finish:")
-    lbl_cost_msg = Label(frm_finish_parking, text="Parking Rate/Hour:")
+    lbl_plate = Label(frm_finish_parking, text="License plate to finish:")
+    lbl_cost_msg = Label(frm_finish_parking, text="Parking rate/hour:")
     lbl_rate = Label(frm_finish_parking, padx=3, foreground="red")
-    lbl_sep = Label(frm_finish_parking, text=" - ")
-    lbl_duration_msg = Label(frm_finish_parking, text="Vehicle Parked From/To:")
-    lbl_start_time = Label(frm_finish_parking, padx=3)
-    lbl_finish_time = Label(frm_finish_parking, padx=3)
+    lbl_parking_msg = Label(frm_finish_parking, text="Vehicle parked at:")
+    lbl_parking_time = Label(frm_finish_parking, padx=3)
+    lbl_duration_msg = Label(frm_finish_parking, text="Vehicle stayed for:")
+    lbl_duration_time = Label(frm_finish_parking, padx=3)
+    lbl_payment_msg = Label(frm_finish_parking, text="Amount of payment: $")
+    lbl_payment_value = Label(frm_finish_parking, padx=3)
     lbl_operation_result = Label(frm_finish_parking, padx=4, foreground="maroon")
 
     ent_plate = Entry(frm_finish_parking)
@@ -133,31 +135,32 @@ def populate_finish_parking_frame(frm_finish_parking):
     btn_finish = Button(frm_finish_parking, text="Finish Parking", state="disabled")
 
     #placing Finish Parking widgets in frame's grid
-    lbl_key_msg.grid(row=1, column=0, padx=2, pady=2)
-    lbl_key.grid(row=1, column=1, padx=2, pady=2)
     lbl_plate.grid(row=0, column=0, padx=2, pady=2)
     ent_plate.grid(row=0, column=2, padx=2, pady=2)
     btn_search.grid(row=0, column=3, padx=2, pady=2)
+    lbl_key_msg.grid(row=1, column=0, padx=2, pady=2)
+    lbl_key.grid(row=1, column=1, padx=2, pady=2)
+    lbl_parking_msg.grid(row=2, column=0, padx=2, pady=2)
+    lbl_parking_time.grid(row=2, column=1, padx=2, pady=2)
+    lbl_duration_msg.grid(row=3, column=0, padx=1,pady=1)
+    lbl_duration_time.grid(row=3, column=1, padx=1, pady=1)
 
-    lbl_duration_msg.grid(row=2, column=0, padx=1,pady=1)
-    lbl_start_time.grid(row=2, column=1, padx=1, pady=1)
-    lbl_sep.grid(row=2, column=2, padx=1, pady=1)
-    lbl_finish_time.grid(row=2, column=3, padx=1, pady=1)
-
-    lbl_cost_msg.grid(row=3, column=0, padx=3, pady=3)
-    lbl_rate.grid(row=3,column=1, padx=3, pady=3)
+    lbl_cost_msg.grid(row=4, column=0, padx=3, pady=3)
+    lbl_rate.grid(row=4,column=1, padx=3, pady=3)
+    lbl_payment_msg.grid(row=5, column=0, padx=1,pady=1)
+    lbl_payment_value.grid(row=5, column=1, padx=1, pady=1)
     
-    lbl_operation_result.grid(row=5, column=0, padx=3, pady=3)
+    lbl_operation_result.grid(row=6, column=0, padx=3, pady=3)
 
-    btn_finish.grid(row=5, column=3, padx=2, pady=2)
+    btn_finish.grid(row=6, column=3, padx=2, pady=2)
 
     #functions for this frame
     def clear():
         """Clearing time labels, rate label, entry plate, and disabling buttons"""
         ent_plate.delete(0, "end")
         lbl_rate.configure(text="")
-        lbl_start_time.configure(text="")
-        lbl_finish_time.configure(text="")
+        lbl_duration_time.configure(text="")
+        lbl_parking_time.configure(text="")
         btn_finish.configure(state="disabled")
         btn_search.configure(state="disabled")
 
@@ -167,6 +170,8 @@ def populate_finish_parking_frame(frm_finish_parking):
         if len(plate) < 7:
             ent_plate.configure(background="pale violet red")
             lbl_operation_result.configure(text="Very Short Plate")
+            btn_finish.configure(state="disabled")
+            btn_search.configure(state="disabled")
         
         else:
             ent_plate.configure(background="light green")
@@ -179,13 +184,17 @@ def populate_finish_parking_frame(frm_finish_parking):
         clear()
         if len(result) == 0:
             lbl_operation_result.configure(text="No active parking found for this plate")
+            btn_search.config(state="active")
         
         else:
             lbl_key.configure(text=result[0])
             ent_plate.insert(0, result[1])
-            lbl_start_time.configure(text=result[2])
-            lbl_finish_time.configure(text=result[3])
-            lbl_rate.configure(text=result[4])    
+            lbl_parking_time.config(text=result[2])
+            lbl_duration_time.configure(text=result[3])
+            lbl_rate.configure(text=result[4])
+            lbl_payment_value.configure(text=result[5])    
+            btn_search.config(state="active")
+            btn_finish.config(state="active")
 
 
     ent_plate.bind("<KeyRelease>", check_plate)
