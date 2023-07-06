@@ -69,6 +69,28 @@ def update_vehicle(key, vehicle):
         print(fire_error.http_response, fire_error.cause)
         
         return False
+    
+def delete_vehicle(key):
+    """Deletes a specific node. 
+    returns: boolean
+    
+    -> This function is only used in test_controller file."""
+    
+    parked_vehicles = db_ref.child("parked-vehicles")
+    
+    vehicle_node = parked_vehicles.child(key)
+    
+    try: 
+        
+        vehicle_node.delete()
+        
+        return True
+    
+    except exceptions.FirebaseError as fire_error:
+        
+        print(fire_error.http_response, fire_error.cause)
+        
+        return False
 
 #Informing correct file to execute
 if __name__ == "__main__":

@@ -33,11 +33,11 @@ def new_parking(plate, price):
 
     if result:
         
-        return "Vehicle succesfully parked"
+        return True
     
     else:
         
-        return "Something Went Wrong!"
+        return False
     
 
 def get_vehicles():

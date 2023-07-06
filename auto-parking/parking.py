@@ -1,5 +1,8 @@
 """Super Auto Parking is a BYUI - CSE111 course final project.
-Writing by Heitor Cazado. """
+
+->In order to run this program it's required to install 'firebase_admin' module
+
+Writing by Heitor Cazado."""
 
 import tkinter as tk
 from tkinter import Frame, Label, Button, Entry, ttk, Listbox, Scrollbar
@@ -124,7 +127,11 @@ def popuplate_new_parking_frame(frm_new_parking):
         
         result = controller.new_parking(plate, price)
         
-        lbl_operation_result.config(text=result)
+        if result:
+            lbl_operation_result.config(text="Vehicle successfully parked!")
+        
+        else:
+            lbl_operation_result.config(text="Something went wrong! Vehicle not parked!")
         
         clear()
 
