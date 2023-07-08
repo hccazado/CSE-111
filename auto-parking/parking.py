@@ -28,9 +28,10 @@ def main ():
     frm_finish_parking = Frame(frm_notebook,width=500, height=280)
     frm_summary_parking = Frame(frm_notebook,width=500, height=280)
 
-    frm_new_parking.pack(pady=10, padx=10, fill="both", expand=True)
-    frm_finish_parking.pack(fill="both", expand=True)
-    frm_summary_parking.pack(fill="both", expand=True)
+    #frm_new_parking.pack(pady=10, padx=10, fill="both", expand=True)
+    frm_new_parking.pack(pady=10, padx=10, fill="both")
+    frm_finish_parking.pack(fill="both")
+    frm_summary_parking.pack(fill="both")
 
     frm_notebook.add(frm_new_parking,text="New Parking")
     frm_notebook.add(frm_finish_parking,text="Finish Parking")
@@ -148,66 +149,66 @@ def populate_finish_parking_frame(frm_finish_parking):
     Return: nothing"""
 
     #defining widgets for Finish parking frame
-    lbl_key_msg = Label(frm_finish_parking, text="Parking key:", padx=5, pady=5)
+    lbl_key_msg = Label(frm_finish_parking, text="Parking key:")
     
-    lbl_key = Label(frm_finish_parking, padx=3)
+    lbl_key = Label(frm_finish_parking)
     
     lbl_plate = Label(frm_finish_parking, text="License plate to finish:")
     
     lbl_cost_msg = Label(frm_finish_parking, text="Parking rate/hour:")
     
-    lbl_rate = Label(frm_finish_parking, padx=3, foreground="red")
+    lbl_rate = Label(frm_finish_parking, foreground="red")
     
     lbl_parking_msg = Label(frm_finish_parking, text="Vehicle parked at:")
     
-    lbl_parking_time = Label(frm_finish_parking, padx=3)
+    lbl_parking_time = Label(frm_finish_parking)
     
     lbl_duration_msg = Label(frm_finish_parking, text="Vehicle stayed for:")
     
-    lbl_duration_time = Label(frm_finish_parking, padx=3)
+    lbl_duration_time = Label(frm_finish_parking)
     
     lbl_payment_msg = Label(frm_finish_parking, text="Amount of payment: $")
     
-    lbl_payment_value = Label(frm_finish_parking, padx=3)
+    lbl_payment_value = Label(frm_finish_parking)
     
-    lbl_operation_result = Label(frm_finish_parking, padx=4, foreground="maroon")
+    lbl_operation_result = Label(frm_finish_parking, foreground="maroon", width=25)
 
-    ent_plate = Entry(frm_finish_parking)
+    ent_plate = Entry(frm_finish_parking, width=20)
 
     btn_search = Button(frm_finish_parking, text="Search Vehicle", state="disabled")
     
     btn_finish = Button(frm_finish_parking, text="Finish Parking", state="disabled")
 
     #placing Finish Parking widgets in frame's grid
-    lbl_plate.grid(row=0, column=0, padx=2, pady=2)
+    lbl_plate.grid(row=0, column=0, pady=1, sticky="W")
     
-    ent_plate.grid(row=0, column=2, padx=2, pady=2)
+    ent_plate.grid(row=0, column=1, padx=3, pady=5)
     
-    btn_search.grid(row=0, column=3, padx=2, pady=2)
+    btn_search.grid(row=0, column=2, padx=3)
     
-    lbl_key_msg.grid(row=1, column=0, padx=2, pady=2)
+    lbl_key_msg.grid(row=1, column=0, padx=3, sticky="W")
     
-    lbl_key.grid(row=1, column=1, padx=2, pady=2)
+    lbl_key.grid(row=1, column=1, sticky="E")
     
-    lbl_parking_msg.grid(row=2, column=0, padx=2, pady=2)
+    lbl_parking_msg.grid(row=2, column=0, padx=3, sticky="W")
     
-    lbl_parking_time.grid(row=2, column=1, padx=2, pady=2)
+    lbl_parking_time.grid(row=2, column=1, sticky="E")
     
-    lbl_duration_msg.grid(row=3, column=0, padx=1,pady=1)
+    lbl_duration_msg.grid(row=3, column=0, padx=3, sticky="W")
     
-    lbl_duration_time.grid(row=3, column=1, padx=1, pady=1)
+    lbl_duration_time.grid(row=3, column=1, sticky="E")
 
-    lbl_cost_msg.grid(row=4, column=0, padx=3, pady=3)
+    lbl_cost_msg.grid(row=4, column=0, padx=3, sticky="W")
     
-    lbl_rate.grid(row=4,column=1, padx=3, pady=3)
+    lbl_rate.grid(row=4, column=1, sticky="E")
     
-    lbl_payment_msg.grid(row=5, column=0, padx=1,pady=1)
+    lbl_payment_msg.grid(row=5, column=0, padx=3, sticky="W")
     
-    lbl_payment_value.grid(row=5, column=1, padx=1, pady=1)
+    lbl_payment_value.grid(row=5, column=1, sticky="E")
     
-    lbl_operation_result.grid(row=6, column=0, padx=3, pady=3)
+    lbl_operation_result.grid(row=6, column=0, columnspan=2, padx=3, sticky="W")
 
-    btn_finish.grid(row=6, column=3, padx=2, pady=2)
+    btn_finish.grid(row=6, column=2)
 
     #functions for this frame
     def clear():
