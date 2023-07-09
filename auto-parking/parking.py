@@ -8,6 +8,8 @@ import tkinter as tk
 from tkinter import Frame, Label, Button, Entry, ttk, Listbox, Scrollbar
 import controller
 
+keys_list = []
+
 def main ():
     """Main function will generate program's main GUI widget with tkinter.
     """
@@ -40,7 +42,7 @@ def main ():
     
     popuplate_new_parking_frame(frm_new_parking)
     populate_finish_parking_frame(frm_finish_parking)
-    populate_parking_summary_frame(frm_summary_parking)
+    populate_parking_summary_frame(frm_summary_parking, keys_list)
     
     root.mainloop()
 
@@ -317,32 +319,33 @@ def populate_finish_parking_frame(frm_finish_parking):
     
     btn_finish.configure(command=finish_parking)
     
-def populate_parking_summary_frame(frm_summary):
+def populate_parking_summary_frame(frm_summary, keys_list):
     """Populate program's Summary notebook's frame with its widgets
     Parameter: frm_summary: A tkinter Frame object
     Return: nothing"""
     
     lbl_summary = Label(frm_summary, text="Parking Summary", padx=5, pady=5)
     
-    btn_all = Button(frm_summary, text="All Parkings", padx=3, pady=3)
+    btn_all = Button(frm_summary, text="All Parkings", padx=3, pady=3, width=15)
     
-    btn_active = Button(frm_summary, text="Active Parkings", padx=3, pady=3)
+    btn_active = Button(frm_summary, text="Active Parkings", padx=3, pady=3, width=15)
     
     scroll = Scrollbar(frm_summary, orient="vertical")
     
-    lb_summary = Listbox(frm_summary, yscrollcommand=scroll.set)
-    
+    lb_summary = Listbox(frm_summary, yscrollcommand=scroll.set, width=30)
+       
     scroll.configure(command=lb_summary.yview)
-    
+        
     #placing items in frame grid
     
-    lbl_summary.grid(row=0, column=0, padx=2, pady=2)
+    lbl_summary.grid(row=0, column=1, padx=2, pady=2)
     
-    lb_summary.grid(row=1, column=0, columnspan=3, rowspan=2, padx=5, pady=5, sticky= "E")
+    lb_summary.grid(row=1, column=0, columnspan=2, rowspan=2, padx=5, pady=5, sticky= "E")
     
-    btn_all.grid(row=1, column=3, sticky = "W" )
+    btn_all.grid(row=1, column=3, pady=3, sticky = "E" )
     
-    btn_active.grid(row=2, column=3, sticky = "W")
+    btn_active.grid(row=2, column=3, pady=3, sticky = "E")
+    
     
     #functions
     
@@ -369,13 +372,30 @@ def populate_parking_summary_frame(frm_summary):
         
         vehicles_list = controller.all_active_vehicles()
         
-        for item in vehicles_list:
+        keys_list = vehicles_list[0]
+        
+        print(f"Keys list: {keys_list}")
+        
+        for item in vehicles_list[1]:
             
             lb_summary.insert('end', item)
+            
+            
+            
+    def edit_active_parking(event):
+        """Opens a pop-up for user to cancel/delete an active parking"""
+        
+        selected_item = event.widget.curselection()[0]
+        print(f"keys_list: {keys_list}")
+        print(f"selected item idx: {selected_item}, key: {keys_list[selected_item]}")
+        
         
     btn_all.configure(command=all_parkings)
     
     btn_active.configure(command=active_parkings)
+    
+    lb_summary.bind("<Double-Button>", edit_active_parking)
+    
     
 
 #executing main function if program is being executed
