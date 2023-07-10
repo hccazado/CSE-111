@@ -345,8 +345,7 @@ def populate_parking_summary_frame(frm_summary, keys_list):
     btn_all.grid(row=1, column=3, pady=3, sticky = "E" )
     
     btn_active.grid(row=2, column=3, pady=3, sticky = "E")
-    
-    
+      
     #functions
     
     def clear_listbox():
@@ -372,29 +371,15 @@ def populate_parking_summary_frame(frm_summary, keys_list):
         
         vehicles_list = controller.all_active_vehicles()
         
-        keys_list = vehicles_list[0]
-        
-        print(f"Keys list: {keys_list}")
-        
-        for item in vehicles_list[1]:
+        for item in vehicles_list:
             
             lb_summary.insert('end', item)
-            
-            
-            
-    def edit_active_parking(event):
-        """Opens a pop-up for user to cancel/delete an active parking"""
-        
-        selected_item = event.widget.curselection()[0]
-        print(f"keys_list: {keys_list}")
-        print(f"selected item idx: {selected_item}, key: {keys_list[selected_item]}")
-        
-        
+
+    #binding button widgets command        
     btn_all.configure(command=all_parkings)
     
     btn_active.configure(command=active_parkings)
     
-    lb_summary.bind("<Double-Button>", edit_active_parking)
     
     
 

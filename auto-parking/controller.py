@@ -141,16 +141,14 @@ def all_active_vehicles():
     dao_vehicles = get_vehicles()
     
     plates = []
-    keys = []
     
     for key in dao_vehicles:
         
         if dao_vehicles[key]["active"] == True:
             
             plates.append(dao_vehicles[key]["plate"])
-            keys.append(key)
         
-    return [keys, plates]
+    return plates
 
 #Informing correct file to execute
 if __name__ == "__main__":
