@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% block header %}
+  <h1>{% block title %}Register Vehicle{% endblock %}</h1>
+{% endblock %}
+  <form id="new_vehicle" method="post">
+    <ul>
+        <li>
+            <label for="plate">License:</label>
+            <input id="plate" name="plate" required>
+        </li>
+        <li>
+            <label for="rate">Parking Rate: ($/Hr)</label>
+            <input name="rate" id="rate" value="10.00">
+        </li>
+        <li>
+            <label for="rate">Client Phone:</label>
+            <input name="phone" id="phone">
+        </li>
+        <li>
+            <label for="rate">Client:</label>
+            <input name="client" id="client">
+        </li>
+        <li>
+            <button type="submit">Park!</button>
+        </li>
+    </ul>
+  </form>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% block header %}
+  <h1>{% block title %}Auto Parking - New User{% endblock %}</h1>
+{% endblock %}
+  <form id="auth_form" method="post">
+    <ul>
+        <li>
+            <label for="username">Username</label>
+            <input id="username" name="user" required>
+        </li>
+        <li>
+            <label for="email">E-mail</label>
+            <input id="email" name="email" required>
+        </li>
+        <li>
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" required>
+        </li>
+        <li>
+            <label for="password">Password</label>
+            <input name="pwd" type="password" id="password" required>
+        </li>
+        <li>
+            <button type="submit">Register</button>
+        </li>
+    </ul>
+  </form>
+{% endblock %}
