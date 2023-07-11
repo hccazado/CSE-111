@@ -4,19 +4,24 @@
 {% block header %}
   <h1>{% block title %}Auto Parking{% endblock %}</h1>
 {% endblock %}
+<section class="menu">
     <a href="{{url_for('parking.new') }}">
-    <div class="card">
-        New Parking
-    </div>
+        <div class="card">
+            <img src="{{ url_for('static', filename='new.png') }}">
+            <p>New Parking</p>
+        </div>
+    </a>
+    <a href="{{url_for('parking.finish_search') }}">
+        <div class="card">
+            <img src="{{ url_for('static', filename='stop.png') }}">
+            <p>Finish Parking</p>
+        </div>
     </a>
     <a>
-    <div class="card">
-        Finish Parking
-    </div>
+        <div class="card">
+            <img src="{{ url_for('static', filename='manage.png') }}">
+            <p>Parking Summary</p>
+        </div>
     </a>
-    <a>
-    <div class="card">
-        Parking Summary
-    </div>
-    </a>
+</section>
 {% endblock %}

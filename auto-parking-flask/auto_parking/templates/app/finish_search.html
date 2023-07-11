@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% block header %}
+  <h1>{% block title %}Finish Parking{% endblock %}</h1>
+{% endblock %}
+  <form id="vehicle" method="post">
+    <ul>
+        <li>
+            <label for="plate">License Plate</label>
+            <input id="plate" name="plate" required>
+        </li>
+        <li id="actions">
+            <button class="button" onclick="location.href='{{url_for('parking.index')}}'">cancel</a>
+            <button type="submit">Search</button>
+        </li>
+    </ul>
+  </form>
+{% endblock %}

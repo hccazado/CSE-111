@@ -31,9 +31,9 @@ def get_user(username, pwd):
 
                 return key
             
-        else:
+    return None
 
-            return None
+                
 
 def pwd_check(pwd, db_hash):
     """verifies a password and user sotred hash.
@@ -119,6 +119,9 @@ def login():
                 session["node_user"] = login
 
                 return redirect(url_for("parking.index"))
+            
+            else:
+                error = "Wrong user or password!"
             
         flash(error)
         

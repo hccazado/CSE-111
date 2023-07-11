@@ -9,6 +9,7 @@ header{
     height: 120px;
     width: 100%;
     border-bottom: 1px solid #aaa;
+    box-shadow: #ddd 3px 3px 3px;
     align-items: center;
     justify-items: center;
 }
@@ -115,7 +116,46 @@ header > nav a:hover{
     width: 100px;
 }
 
-#btn{
-    text-align: right;
+#vehicle > ul > li > p{
+    display: inline-block;
+    margin: 5px;
+    text-align: left;
+    width: 200px;
+}
+
+#payment{
+    color: red;
+}
+
+#actions{
+    display: flex;
+    justify-content: space-between;
     margin-right: 40px;
+    margin-left: 40px;
+}
+.menu{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+    border: 1px ;
+}
+.menu a{
+    color: #000;
+    text-decoration: none;
+}
+.card{
+    width: 200px;
+    height: 250px;
+    border: 1px solid #aaa;
+    box-shadow: #ddd 3px 3px 3px;
+    border-radius: 5px;
+
+}
+.card > img{
+    width: 80%;
+    margin-top: 15px;
+}
+
+.button{
+    color: #000;
 }

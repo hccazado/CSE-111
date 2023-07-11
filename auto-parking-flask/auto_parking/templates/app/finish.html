@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% block header %}
+  <h1>{% block title %}Finish Parking{% endblock %}</h1>
+{% endblock %}
+  <form id="vehicle" method="post">
+    <ul>
+        <li>
+            <label>License Plate</label>
+            <p>{{vehicle[2]}}</p>
+        </li>
+        <li>
+            <label>Parking ID:</label>
+            <p>{{vehicle[0]}}</p>
+        </li>
+        <li>
+            <label>Parking Time:</label>
+            <p>{{vehicle[3]}}</p>
+        </li>
+        <li>
+            <label>Finishing Time:</label>
+            <p>{{vehicle[7]}}</p>
+        </li>
+        <li>
+            <label>Stayed Time:</label>
+            <p>{{vehicle[8]}}</p>
+        </li>
+        <li>
+            <label>Parking Rate:</label>
+            <p>{{vehicle[4]}}</p>
+        </li>
+        <li>
+            <label>Total:</label>
+            <p id="payment">$ {{vehicle[9]}}</p>
+        </li>
+        <li id="actions">
+            <button class="button" onclick="location.href='{{url_for('parking.index')}}'">cancel</a>
+            <button type="submit">Finish Parking</button>
+        </li>
+    </ul>
+  </form>
+{% endblock %}
