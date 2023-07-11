@@ -84,3 +84,38 @@ header > nav a:hover{
 #auth_form input:focus{
     border: 1px solid #000;
 }
+
+#vehicle{
+    width: 400px;
+    margin: 30px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: #ddd 3px 3px 3px;
+}
+
+#vehicle > form{
+    margin: 30px auto;
+}
+
+#vehicle > ul{
+    list-style: none;
+    margin:20px;
+    padding: 0;
+}
+
+#vehicle > ul > li {
+    padding-top: 15px;
+}
+
+#vehicle > ul > li > label{
+    display: inline-block;
+    font-size: 1em;
+    text-align: right;
+    margin-right: 10px;
+    width: 100px;
+}
+
+#btn{
+    text-align: right;
+    margin-right: 40px;
+}

@@ -11,7 +11,7 @@ blue_print = Blueprint("auth", __name__, url_prefix="/auth")
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
-        if g.user is None:
+        if not "node_user" in session:
             return redirect(url_for('auth.login'))
 
         return view(**kwargs)
@@ -28,20 +28,20 @@ def get_user(username, pwd):
         if users[key]["user"] == username:
 
             if pwd_check(pwd, users[key]["hash"]):
-                
+
                 return key
             
         else:
 
             return None
 
-def pwd_check(pwd, hash):
+def pwd_check(pwd, db_hash):
     """verifies a password and user sotred hash.
     parameters: pwd: password typed in login form
                 hash: stored hash in db
     returns: boolean"""
 
-    if check_password_hash(pwd, hash):
+    if check_password_hash(db_hash, pwd):
         
         return True
     
@@ -114,24 +114,23 @@ def login():
 
             login = get_user(user, pwd)
 
-            if login != None:
+            if not login == None:
 
-                session["user_node"] = login
+                session["node_user"] = login
 
-            return redirect(url_for("index"))
+                return redirect(url_for("parking.index"))
             
         flash(error)
         
     return render_template("auth/login.html")
-    
-
         
 @blue_print.route("/logout")
     
 
 def logout():
     """end user session"""
-    session.pop("user_node", None)
-    return redirect(url_for("/auth/login"))
+    session.pop("node_user", None)
+    
+    return redirect(url_for("auth.login"))
 
         

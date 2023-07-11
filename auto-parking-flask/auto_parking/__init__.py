@@ -34,6 +34,6 @@ def create_app(test_config=None):
 
     from .controller import parking
     app.register_blueprint(parking.blue_print)
-    app.add_url_rule("/", endpoint="index")
+
 
     return app

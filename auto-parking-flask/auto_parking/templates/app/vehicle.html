@@ -4,25 +4,25 @@
 {% block header %}
   <h1>{% block title %}Register Vehicle{% endblock %}</h1>
 {% endblock %}
-  <form id="new_vehicle" method="post">
+  <form id="vehicle" method="post">
     <ul>
         <li>
-            <label for="plate">License:</label>
+            <label for="plate">License</label>
             <input id="plate" name="plate" required>
         </li>
         <li>
-            <label for="rate">Parking Rate: ($/Hr)</label>
+            <label for="rate">Parking Rate $:</label>
             <input name="rate" id="rate" value="10.00">
         </li>
         <li>
-            <label for="rate">Client Phone:</label>
+            <label for="rate">Client Phone</label>
             <input name="phone" id="phone">
         </li>
         <li>
-            <label for="rate">Client:</label>
+            <label for="client">Client</label>
             <input name="client" id="client">
         </li>
-        <li>
+        <li id="btn">
             <button type="submit">Park!</button>
         </li>
     </ul>

@@ -1,4 +1,6 @@
-import functools, datetime
+import functools
+
+from datetime import datetime
 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
 
@@ -8,7 +10,7 @@ from .auth import login_required
 
 from ..dao import dao
 
-blue_print = Blueprint("parking", __name__)
+blue_print = Blueprint("parking", __name__, url_prefix="/parking")
 
 def current_time():
     """return the current date and time formated as: weekday month day hour:minute:seconds year
@@ -20,18 +22,18 @@ def current_time():
     return current_dt
 
 @blue_print.route("/") 
-#@login_required
+@login_required
 def index():
     """loads the main app page. A session is required."""
     return render_template("app/index.html")
 
 @blue_print.route("/new", methods=("GET","POST"))
 
-def new_vehicle():
+def new():
     """Inserts a new vehicle's register into user database"""
     
     if request.method=="GET":
-        return render_template("app/newparking.html")
+        return render_template("app/vehicle.html")
     
     else:
         plate = request.form["plate"]
@@ -40,7 +42,7 @@ def new_vehicle():
         
         client = request.form["client"]
         
-        phone = request["phone"]
+        phone = request.form["phone"]
 
         parking_time = current_time()
 
@@ -51,3 +53,19 @@ def new_vehicle():
 
         elif not rate:
             error ="A Parking rate is required!"
+
+        if error == None:
+
+            new_vehicle = {
+                "user": session["user_node"],
+                "plate":plate,
+                "rate":rate,
+                "client": client,
+                "phone": phone,
+                "parking_time": parking_time,
+                "active": True
+            }
+
+            if dao.new_parking(new_vehicle):
+                
+                return redirect(url_for("index"))
