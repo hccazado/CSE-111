@@ -24,12 +24,15 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    
+
     from .controller import auth
     app.register_blueprint(auth.blue_print)
 
     from .controller import parking
     app.register_blueprint(parking.blue_print)
+
+    from .controller import summary
+    app.register_blueprint(summary.blue_print)
 
 
     return app

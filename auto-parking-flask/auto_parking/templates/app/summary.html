@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% block header %}
+  <h1>{% block title %}Auto Parking{% endblock %}</h1>
+{% endblock %}
+<section class="menu">
+    <table>
+        <thead>
+            <td>
+                DB Key
+            </td>
+            <td>
+                plate
+            </td>
+            <td>
+                Parking Time
+            </td>
+            <td>
+                Parking Finish
+            </td>
+            <td>
+                Parking Rate
+            </td>
+        </thead>
+        <tbody>
+        {% for vehicle in vehicles %}
+        <tr>
+            <td>{{vehicle["key"]}}</td>
+            <td>{{vehicle["plate"]}}</td>
+            <td>{{vehicle["parking_time"]}}</td>
+            {% if vehicle["finished_parking"] %}
+
+                <td>{{vehicle["finished_parking"]}}</td>
+            
+            {%else%}
+                <td> - </td>
+            {% endif %}
+            <td>{{vehicle["rate"]}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</section>
+{% endblock %}
