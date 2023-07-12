@@ -21,15 +21,21 @@ def new_parking(parking_data):
     
     parked_vehicles = db_ref.child("parked-vehicles")
     
-    try:
-            
-        parked_vehicles.push(parking_data)
-        
-        return True
+    if "plate" in parking_data:
     
-    except exceptions.FirebaseError as fire_error:
+        try:
+                
+            parked_vehicles.push(parking_data)
+            
+            return True
         
-        print(fire_error.http_response, fire_error.cause)
+        except exceptions.FirebaseError as fire_error:
+            
+            print(fire_error.http_response, fire_error.cause)
+            
+            return False
+    
+    else:
         
         return False
     
