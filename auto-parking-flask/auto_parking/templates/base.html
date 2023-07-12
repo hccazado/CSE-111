@@ -8,6 +8,7 @@
 </head>
 <body>
     <header>
+        <div id="clock"></div>
         <div class="logo">
             AutoParking
         </div>
@@ -30,5 +31,6 @@
             #<!--Flask will Insert any content from templates-->
         {% endblock %}
     </section>
+    <script src="{{url_for('static', filename='clock.js')}}"></script>
 </body>
 </html>

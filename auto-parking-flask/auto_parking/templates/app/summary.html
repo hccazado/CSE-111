@@ -2,9 +2,13 @@
 
 {% block content %}
 {% block header %}
-  <h1>{% block title %}Auto Parking{% endblock %}</h1>
+  <h1>{% block title %}Auto Parking - Summary{% endblock %}</h1>
 {% endblock %}
-<section class="menu">
+<a href="{{url_for("parking.index")}}">
+    <img class="return" src="{{url_for('static', filename='return.png')}}" alt="return icon">
+</a>
+<section class="summary">
+    
     <table>
         <thead>
             <td>
@@ -22,23 +26,45 @@
             <td>
                 Parking Rate
             </td>
+            <td>
+                Total Value
+            </td>
         </thead>
         <tbody>
         {% for vehicle in vehicles %}
         <tr>
             <td>{{vehicle["key"]}}</td>
-            <td>{{vehicle["plate"]}}</td>
-            <td>{{vehicle["parking_time"]}}</td>
-            {% if vehicle["finished_parking"] %}
 
-                <td>{{vehicle["finished_parking"]}}</td>
+            <td>{{vehicle["plate"]}}</td>
+
+            <td>{{vehicle["parking_time"]}}</td>
+
+            {% if vehicle["finished_parking"] %}
+            
+            <td>{{vehicle["finished_parking"]}}</td>
             
             {%else%}
-                <td> - </td>
+
+            <td> Running </td>
+
             {% endif %}
+
             <td>{{vehicle["rate"]}}</td>
+
+            {% if vehicle["finished_parking"] %}
+
+                <td>{{vehicle["payment"]}}</td>
+            
+            {%else%}
+
+                <td> Running </td>
+
+            {% endif %}
+
         </tr>
+
         {% endfor %}
+        
     </tbody>
     </table>
 </section>

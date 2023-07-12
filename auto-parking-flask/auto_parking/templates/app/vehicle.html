@@ -4,6 +4,9 @@
 {% block header %}
   <h1>{% block title %}Register Vehicle{% endblock %}</h1>
 {% endblock %}
+<a href="{{url_for("parking.index")}}">
+  <img class="return" src="{{url_for('static', filename='return.png')}}" alt="return icon">
+</a>
   <form id="vehicle" method="post">
     <ul>
         <li>
@@ -23,7 +26,6 @@
             <input name="client" id="client">
         </li>
         <li id="actions">
-            <button class="button" onclick="location.href='{{url_for('parking.index')}}'">cancel</a>
             <button type="submit">Park!</button>
         </li>
     </ul>

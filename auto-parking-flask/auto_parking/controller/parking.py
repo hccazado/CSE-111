@@ -12,6 +12,13 @@ global vehicle
 
 blue_print = Blueprint("parking", __name__, url_prefix="/parking")
 
+def new_parking(new_vehicle):
+    """calls Dao new parking to store a new parked vehicle
+    Parameter: new_vehicle - a dictionary with new parking data
+    Return: boolean"""
+    
+    return dao.new_parking(new_vehicle)
+    
 def compute_parked_time(start_time, finish_time):
     """Computes total time that a vehicle remained parked.
     Parameter: start_time: datetime object whith starting parked time
@@ -161,7 +168,7 @@ def new():
                 "active": True
             }
 
-            if dao.new_parking(new_vehicle):
+            if new_parking(new_vehicle):
                 
                 return redirect(url_for("parking.index"))
             
@@ -235,11 +242,12 @@ def finish(vehicle_plate):
             "active": False
             }
         
-        if dao.update_vehicle(vehicle[0], updt_vehicle):
+        if finish_vehicle_parking(vehicle[0], updt_vehicle):
             
             return redirect(url_for("parking.index"))
         
         else:
+            
             error = "An error has ocurred!"
 
             flash(error)
