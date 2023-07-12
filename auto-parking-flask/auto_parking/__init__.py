@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, url_for, redirect, render_template
 
 
 def create_app(test_config=None):
@@ -23,8 +23,15 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-
-
+    
+    @app.errorhandler(404)
+    def not_found(e):
+        return render_template("notfound.html")
+    
+    @app.route("/")
+    def parking_index():
+        return redirect("/parking/")
+    
     from .controller import auth
     app.register_blueprint(auth.blue_print)
 
