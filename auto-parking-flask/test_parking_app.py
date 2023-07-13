@@ -24,8 +24,8 @@ test_vehicle = {
 #Testing autentication auth's module functions
 
 def test_new_user():
-    """verifies that the new_user function from auth module is checking for 
-    username has at least 3 characters, email and hash are not empty
+    """verifies that the new_user function from auth module is performing well and not accepting 
+    username, email and hash as None (which represents left blank on the web form)
     """
     
     user_1 = {

@@ -28,10 +28,6 @@ def user_login(username = "", pwd = None):
         
         return False
     
-    elif len(username) < 3:
-        
-        return False
-    
     else:
     
         users = dao.get_users()
