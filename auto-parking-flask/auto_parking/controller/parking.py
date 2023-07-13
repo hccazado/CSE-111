@@ -17,6 +17,10 @@ def new_parking(new_vehicle):
     Parameter: new_vehicle - a dictionary with new parking data
     Return: boolean"""
     
+    if new_vehicle["plate"] == None or  not new_vehicle["plate"] or new_vehicle["user"] == None or not new_vehicle["user"]:
+        
+        return False
+    
     return dao.new_parking(new_vehicle)
     
 def compute_parked_time(start_time, finish_time):

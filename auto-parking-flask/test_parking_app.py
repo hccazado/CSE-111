@@ -1,15 +1,18 @@
 """Auto Parking Flask - Test module"""
 
+import json
 from pytest import approx
 import pytest
 from auto_parking.controller import parking as controller
 from auto_parking.dao import dao as model
+from auto_parking.controller import auth
 from datetime import datetime, timedelta
+from werkzeug.security import generate_password_hash
 
-node_user = "-N_ACQeq_5r78iCjiHDf"
+node_user = None
 
 test_vehicle = {
-        "user": node_user,
+        "user": None,
         "plate":"AAA-1111",
         "rate":"0.99",
         "parking_time": controller.current_time(),
@@ -17,6 +20,79 @@ test_vehicle = {
         "phone": "123456",
         "active": True
     }
+
+#Testing autentication auth's module functions
+
+def test_new_user():
+    """verifies that the new_user function from auth module is checking for 
+    username has at least 3 characters, email and hash are not empty
+    """
+    
+    user_1 = {
+        "user": None,
+        "email":"test@email.com",
+        "hash": str(generate_password_hash("123456"))
+    }
+        
+    user_2 = {
+        "user": "Tes".upper(),
+        "email": None,
+        "hash": generate_password_hash("123456")
+    }
+    
+    user_3 = {
+        "user": "Test".upper(),
+        "email": "test@email.com",
+        "hash": None
+    }
+    
+    user_4 = {
+        "user": "Test".upper(),
+        "email": "test@email.com",
+        "hash": generate_password_hash("123456")
+    }
+    
+    assert auth.new_user(user_1) is False
+    
+    assert auth.new_user(user_2) is False
+    
+    assert auth.new_user(user_3) is False
+    
+    assert auth.new_user(user_4) is True
+    
+def test_pwd_check():
+    """verifies that pwd_check from auth module is performing well."""
+    
+    pwd_hash = "pbkdf2:sha256:600000$cDmtYyQuB2WJ6RV4$4c36c783953159bd5c039a23ca1bf83826b1184c3bcc618c0d17773b8f97db4b"
+    
+    pwd = "123456"
+    
+    assert auth.pwd_check(pwd) is False
+    
+    assert auth.pwd_check(db_hash= pwd_hash) is False
+    
+    assert auth.pwd_check(pwd, pwd_hash) is True
+    
+def test_get_user():
+    """Test function get_ser from auth module. and get firebase key for the test user previously created"""
+    
+    user = "TEST"
+    pwd= "123456"
+    
+    global node_user
+    
+    assert auth.user_login(None, pwd) is False
+    
+    assert auth.user_login(user, "") is False
+    
+    assert auth.user_login(user) is False
+    
+    node_user = auth.user_login(user, pwd)
+    
+    assert  type(node_user) == str
+
+    test_vehicle["user"] = node_user
+    
 
 def test_current_time():
     """Verifies that the current_time function returns a string object with current time and current time"""
@@ -82,6 +158,14 @@ def test_get_user_vehicles():
     result = controller.get_user_vehicles(node_user)
     
     assert type(result) is list
+    
+def test_deleteremove_user():
+    """verifies that dao delete_user function is performing well."""
+        
+    removal = model.delete_user(node_user)
+    
+    assert removal is True
+
     
 # Call the main function that is part of pytest so that the
 # computer will execute the test functions in this file.

@@ -116,7 +116,7 @@ def delete_vehicle(key):
     """Deletes a specific node. 
     returns: boolean
     
-    -> This function is only used in test_controller file."""
+    -> This function is only used in test_parking_app file."""
     
     parked_vehicles = db_ref.child("parked-vehicles")
     
@@ -125,6 +125,28 @@ def delete_vehicle(key):
     try: 
         
         vehicle_node.delete()
+        
+        return True
+    
+    except exceptions.FirebaseError as fire_error:
+        
+        print(fire_error.http_response, fire_error.cause)
+        
+        return False
+    
+def delete_user(key):
+    """Deletes a specific user node. 
+    returns: boolean
+    
+    -> This function is only used in test_parking_app file."""
+    
+    registered_users = db_ref.child("users")
+    
+    user_node = registered_users.child(key)
+    
+    try: 
+        
+        user_node.delete()
         
         return True
     

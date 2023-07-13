@@ -8,36 +8,57 @@ from ..dao import dao
 
 blue_print = Blueprint("auth", __name__, url_prefix="/auth")
 
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if not "node_user" in session:
-            return redirect(url_for('auth.login'))
+def new_user(user = {}):
+    """calls DAO new_user for inserting a new user into the system.
+    Parameter: user - dictionary with data to be inserted into Firebase
+    Return: boolean"""
+    
+    if user["user"] == None or user["email"] == None or user["hash"] == None or user == {}:
+        
+        return False
+        
+    else:
+        
+        return dao.new_user(user) 
 
-        return view(**kwargs)
-
-    return wrapped_view
-
-def get_user(username, pwd):
+def user_login(username = "", pwd = None):
     """returns a user if found and passwrod matches."""
     
-    users = dao.get_users()
+    if username == None or pwd == None:
+        
+        return False
     
-    for key in users:
-
-        if users[key]["user"] == username:
-
-            if pwd_check(pwd, users[key]["hash"]):
-
-                return key
+    elif len(username) < 3:
+        
+        return False
+    
+    else:
+    
+        users = dao.get_users()
+        
+        if users == {}:
             
-    return None
+            return False
+        
+        for key in users:
 
-def pwd_check(pwd, db_hash):
+            if users[key]["user"] == username:
+
+                if pwd_check(pwd, users[key]["hash"]):
+
+                    return key
+                
+        return False
+
+def pwd_check(pwd = None, db_hash = None):
     """verifies a password and user sotred hash.
     parameters: pwd: password typed in login form
                 hash: stored hash in db
     returns: boolean"""
+    
+    if pwd == None or db_hash == None:
+        
+        return False
 
     if check_password_hash(db_hash, pwd):
         
@@ -46,6 +67,19 @@ def pwd_check(pwd, db_hash):
     else:
 
         return False
+    
+def login_required(view):
+    """Verifies that there's a DB user node key stored in session and redirects to login page if there's no session"""
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        
+        if not "node_user" in session:
+            
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
     
 @blue_print.route("/register", methods=("GET","POST"))
 
@@ -76,8 +110,13 @@ def register():
                 "hash": generate_password_hash(pwd)
             }
  
-            if(dao.new_user(user_data)):
+            if new_user(user_data):
+                
                 return redirect(url_for("auth.login"))
+            
+            else:
+                
+                error = "An error has ocurred creating the user!"
 
         flash(error)
 
@@ -110,9 +149,9 @@ def login():
 
             session.clear()
 
-            login = get_user(user, pwd)
+            login = user_login(user, pwd)
 
-            if not login == None:
+            if login:
 
                 session["node_user"] = login
 
