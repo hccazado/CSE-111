@@ -33,8 +33,6 @@ def get_user(username, pwd):
             
     return None
 
-                
-
 def pwd_check(pwd, db_hash):
     """verifies a password and user sotred hash.
     parameters: pwd: password typed in login form
