@@ -1,0 +1,35 @@
+=====================================
+Instructions for running the project:
+=====================================
+
+1 - unzipping the auto-parking-flask.zip;
+
+2- open a terminal/cmd window on the Project root folder "auto-parking-flask", where you should see the file "Dockerfile";
+
+3 - Execute docker to build an image of my project with the command line (without quotes): "docker build -t auto-parking ." ;
+
+4 - Run the image with the command: "docker run -d -p 5000:5000 auto-parking" ;
+
+5 - the Application "Auto Parking" should be accessible through the URL: "http://0.0.0.0:5000", and/or "http://127.0.0.1:5000" it 
+depends on your docker engine configuration;
+
+Obs: The Application DB is provided by Google Cloud Platform: Firebase - Realtime Database, and I'd some data already inserted.  
+
+6 - You may log in with: 
+user: heitor
+password: 123456 
+
+or if you prefer, you may create your own user through the URL: "http://0.0.0.0:5000/auth/register" and log in with your very own account.
+
+===================================
+Executing test_parking_app.py file
+===================================
+
+Once you have your docker image running, the testing script can be executed through the application container. 
+
+1 - run the command "docker ps" and look for the Container Name which was attributed to auto-parking, and copy it;
+
+2 - Paste the container on the following command, replacing the "<container_name>" with the one you've copied. 
+"docker exec <container_name> python test_parking_app.py" ;
+
+3 - copy and paste the command into your terminal, and execute it.
